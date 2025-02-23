@@ -12,7 +12,7 @@ from redis.asyncio import Redis
 from database.engine import postgres_connect
 from handlers._controller.controller import controller
 from middlewares.retry_after_middleware import RetryAfterMiddleware
-from config_reader import Config, config
+from config_reader import config
 
 async def setup_database() -> None:
     await postgres_connect()
@@ -20,10 +20,10 @@ async def setup_database() -> None:
 async def setup_routers(dispatcher: Dispatcher) -> None:
     routers: List[Router] = await controller()
     for router in routers:
-        dispatcher.include_router(router)
+        dispatcher.include_router(router=router)
 
 async def setup_logging() -> None:
-    logging.config.dictConfig(config.logging)
+    logging.config.dictConfig(config=config.logging)
 
 async def on_startup(dispatcher: Dispatcher, bot: Bot) -> None:
     await setup_logging()
