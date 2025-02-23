@@ -1,0 +1,33 @@
+bot:
+  token: xxx
+  max_connections: 1000
+
+database:
+  postgres:
+    user: xxx
+    password: xxx
+    name: xxx
+    host: localhost
+    port: 5432
+  redis:
+    dsn: redis://localhost:6379/0
+    max_connections: 1
+
+logging:
+  version: 1
+  disable_existing_loggers: False
+  formatters:
+    default:
+      format: "%(asctime)s %(levelname)s %(message)s"
+  handlers:
+    rotating_file:
+      class: logging.handlers.TimedRotatingFileHandler
+      filename: logs/bot.log
+      when: midnight
+      backupCount: 10
+      encoding: utf-8
+      formatter: default
+  root:
+    level: INFO
+    handlers:
+      - rotating_file

@@ -1,0 +1,15 @@
+[project]
+name = "aiogram_template_polling"
+version = "0.0.1"
+description = "Description"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "aiogram>=3.18.0",
+    "aiogram-i18n>=1.4",
+    "asyncpg>=0.30.0",
+    "pyyaml>=6.0.2",
+    "redis>=5.2.1",
+    "ruff>=0.9.7",
+    "sqlalchemy>=2.0.38",
+]
