@@ -12,7 +12,7 @@ from redis.asyncio import Redis
 from database.engine import postgres_connect
 from handlers._controller.controller import controller
 from middlewares.retry_after_middleware import RetryAfterMiddleware
-from config_reader import Config, get_config
+from config_reader import Config, config
 
 async def setup_database() -> None:
     await postgres_connect()
@@ -23,7 +23,6 @@ async def setup_routers(dispatcher: Dispatcher) -> None:
         dispatcher.include_router(router)
 
 async def setup_logging() -> None:
-    config = get_config()
     logging.config.dictConfig(config.logging)
 
 async def on_startup(dispatcher: Dispatcher, bot: Bot) -> None:
@@ -33,8 +32,6 @@ async def on_startup(dispatcher: Dispatcher, bot: Bot) -> None:
 
 
 async def main() -> None:
-    config: Config = get_config()
-    print(f"{config=}")
     bot: Bot = Bot(token=config.bot.token.get_secret_value(),
               session=RetryAfterMiddleware(limit=config.bot.max_connections),
                 default=DefaultBotProperties(parse_mode=ParseMode.HTML))
