@@ -24,7 +24,7 @@ logging:
   handlers:
     rotating_file:
       class: logging.handlers.TimedRotatingFileHandler
-      filename: logs/fuckstorage.log
+      filename: logs/bot.log
       when: midnight
       backupCount: 10
       encoding: utf-8
