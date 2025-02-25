@@ -1,11 +1,18 @@
 from yaml import safe_load
 from functools import lru_cache
 from pydantic import BaseModel, SecretStr, PostgresDsn, RedisDsn
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 class Bot(BaseModel):
     token: SecretStr
     max_connections: int
+    local_api: bool
+    local_base: Optional[str]
+
+class Coomer(BaseModel):
+    url: str
+    backup_url: str
+    proxy: SecretStr
 
 class Postgres(BaseModel):
     user: str
@@ -35,6 +42,7 @@ class Database(BaseModel):
 
 class Config(BaseModel):
     bot: Bot
+    coomer: Coomer
     database: Database
     logging: Dict[str, Any]
 
